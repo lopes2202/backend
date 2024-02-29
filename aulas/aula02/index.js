@@ -1,5 +1,7 @@
 const readline = require("readline-sync");
 
+const controlador = require('./controlador')
+
 function menu() {
   console.log("1. Listar");
   console.log("2. Criar");
@@ -12,21 +14,26 @@ function menu() {
 function escolheropção(opcao) {
   switch (opcao) {
     case "1":
+        controlador.listar();
       break;
     case "2":
+       controlador.criar();
       break;
     case "3":
+        controlador.buscar();
       break;
     case "4":
+        controlador.atualizar();
       break;
     case "5":
+        remover();
       break;
     case "6":
       process.exit(0);
     default:
       console.log("Opção invalida");
   }
-  readline.question("Pressione ENTER para continuar...")
+  readline.question("Pressione ENTER para continuar...");
 }
 
 function main() {
