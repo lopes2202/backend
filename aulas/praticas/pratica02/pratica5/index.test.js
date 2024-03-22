@@ -10,6 +10,12 @@ test("Deve retornar o status 200 e um conteudo do tipo JSON", async function(){
     expect(response.headers['content-type']).toMatch(/json/);
 });
 
+test("Deve retornar o status 201 e um conteúdo do tipo JSON", async function(){
+    const response = await request.post('/produtos').send({nome: "uva", preco: 20.00})
+    expect(response.status).toBe(201);
+    expect(response.headers['content-type']).toMatch(/json/);
+});
+
 test("Deve retornar o status 200 e um conteudo do tipo JSON", async function(){
     const response = await request.get('/produtos/1')
     expect(response.status).toBe(200);
@@ -22,31 +28,34 @@ test("Deve retornar o status 404 e um conteudo do tipo JSON", async function(){
     expect(response.headers['content-type']).toMatch(/json/);
 })
 
-test("Deve retornar o status 201 e um conteúdo do tipo JSON", async function(){
-    const response = await request.post('/produtos').send({nome: "uva", preco: 20.00})
-    expect(response.status).toBe(201);
-    expect(response.headers['content-type']).toMatch(/json/);
-})
 
 test("Deve retornar o status 422 e um conteúdo do tipo JSON", async function(){
     const response = await request.post('/produtos')
     expect(response.status).toBe(422);
     expect(response.headers['content-type']).toMatch(/json/);
-})
+});
 
 test("Deve retornar o status 200 e um conteúdo do tipo JSON", async function(){
-    const response = await request.post('/produtos/1').send({nome: "uva verde", preco: 18.00})
+    const response = await request.put('/produtos/1').send({nome: "uva verde", preco: 18.00})
     expect(response.status).toBe(200);
     expect(response.headers['content-type']).toMatch(/json/);
-})
+});
 
-test("Deve retornar o status 204 e sem conteúdo", async function(){
-    const response = await request.delete("/produtos/1")
-    expect(response.status).toBe(204);
-})
+test("Deve retornar status 404 e um JSON no PUT", async function() {
+  const response = await request.put("/produtos/100");
+  expect(response.status).toBe(404);
+  expect(response.headers['content-type']).toMatch(/json/);
+});
 
-test("Deve retornar o status 404 e um conteúdo do tipo JSON", async function(){
-    const response = await request.delete("/produtos/100")
-    expect(response.status).toBe(404);
-    expect(response.headers['content-type']).toMatch(/json/);
+
+test("Deve retornar status 204 e sem Body no DELETE", async function() {
+  const response = await request.delete("/produtos/1");
+  expect(response.status).toBe(204);
+  expect(response.body).toEqual({});
+});
+
+test("Deve retornar status 404 e um JSON no DELETE", async function() {
+  const response = await request.delete("/produtos/100");
+  expect(response.status).toBe(404);
+  expect(response.headers['content-type']).toMatch(/json/);
 })
