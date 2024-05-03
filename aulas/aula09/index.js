@@ -56,7 +56,7 @@ async function main() {
     //     { nome: "banana" },
     //     { nome: "banana prata", preco: 10, quantidade: 8 }
     //   );
-  console.log(produto);
+ // console.log(produto);
 
     // remover produto
     //const produto = await Produto.findOneAndDelete({ nome: "uva" });
