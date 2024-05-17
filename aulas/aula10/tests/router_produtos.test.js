@@ -32,4 +32,14 @@ let id = null;
         expect(res.status).toBe(200);
         expect(res.type).toBe("application/json");
       });
+      test("Deve retornar 404 e JSON no GET", async() => {
+        const res = await req.get('/produtos/663ccfe0e2ec7e07ffc9b063');
+        expect(res.status).toBe(404);
+        expect(res.type).toBe("application/json");
+      })
+      test('Deve retornar 200 e um JSON no put /produtos/id', async () => {
+        const res = await req.put(`/produtos/${id}`).send({nome: "Banana Nanica", preco: 7.0});
+        expect(res.status).toBe(200);
+        expect(res.type).toBe("application/json");
+      })
     });

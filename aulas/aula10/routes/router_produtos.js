@@ -8,6 +8,9 @@ router.post("/", controllerProdutos.validar, controllerProdutos.criar);
 
 router.get("/", controllerProdutos.listar)
 
-router.get("/:id", controllerProdutos.obter)
+router.get("/:id", controllerProdutos.buscar, controllerProdutos.obter);
+
+router.put("/:id", controllerProdutos.atualizar);
+
 
 module.exports = router;

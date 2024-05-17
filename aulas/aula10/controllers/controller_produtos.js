@@ -7,8 +7,8 @@ async function validar(req, res, next) {
     const produto = new Produto(req.body);
     await produto.validate();
     next();
-  } catch(error) {
-    res.status(422).json({msg: "Dados invalidos do produto"});
+  } catch (error) {
+    res.status(422).json({ msg: "Dados invalidos do produto" });
   }
 }
 
@@ -18,14 +18,31 @@ async function criar(req, res) {
 }
 
 async function listar(req, res) {
-    const produtos = await Produto.find({});
-    res.json(produtos)
+  const produtos = await Produto.find({});
+  res.json(produtos)
 }
 
-async function obter(req, res){
-    const id = new mongoose.Types.ObjectId(req.params.id)
+async function buscar(req, res, next) {
+  try {
+    const id = new mongoose.Types.ObjectId(req.params.id);
     const produto = await Produto.findOne({ _id: id });
-    res.json(produto)
+    if (produto) {
+      next();
+    } else {
+      res.status(404).json({ msg: "Produto não encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ msg: "Id Invalido" });
+  }
 }
 
-module.exports = { criar, validar, listar, obter };
+async function obter(req, res) {
+  const id = new mongoose.Types.ObjectId(req.params.id);
+  const produto = await Produto.findOne({ _id: id });
+  res.json(produto)
+}
+
+async function atualizar(req, res) {
+  res.json({});
+}
+module.exports = { criar, validar, listar, obter, buscar, atualizar };
