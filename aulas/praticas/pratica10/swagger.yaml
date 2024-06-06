@@ -1,12 +1,26 @@
 openapi: 3.0.0
 info:
-  title: API Segurança
-  version: 0.1
+  title: API Loja Virtual
+  version: 0.0.1
 tags:
-  - name: usuarios
+  - usuarios
 paths:
-  /usuarios
+  /produtos:
     post:
+      tags:
+        - usuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+           
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: 
+
   /usuarios/login
   /usuarios/renovar
 components:
