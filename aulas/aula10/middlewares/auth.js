@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 function validarToken(req, res, next){
     const token = req.headers['authorization']
     if(token){
-        const payload = jwt.verify(token, "12345678");
+        const payload = jwt.verify(token, process.env.SEGREDO);
         if(payload){
             console.log(payload)
             next();
